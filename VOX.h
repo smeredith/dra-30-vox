@@ -30,5 +30,4 @@ private:
   int m_audioInputPin;
   int m_tailTimePotPin;
   elapsedMillis m_timeBelowThreashold = 1024;
-
 };

@@ -42,8 +42,8 @@ public:
   
 private:
   int m_pttPin;
-  const unsigned int m_maxPressTimeMs = 300000;
-  const unsigned int m_minPressTimeMs = 100;
+  const unsigned long m_maxPressTimeMs = 300000;
+  const unsigned long m_minPressTimeMs = 100;
   bool m_pressed = false;
   bool m_timeOut = false;
   elapsedMillis m_pressElapsedMs;
