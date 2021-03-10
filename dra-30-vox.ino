@@ -3,7 +3,7 @@
 #include "VOX.h"
 #include "heartbeat.h"
 
-const int hbOkPin = PB4;
+const int hbOkPin = PB0;
 const int pttPin = PB1;
 const int hbInPin = A2;
 const int audioInPin = A3;
