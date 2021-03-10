@@ -3,7 +3,7 @@
 #include "VOX.h"
 #include "heartbeat.h"
 
-const int hbOkPin = PB0;
+const int hbOkOutPin = PB0;
 const int pttPin = PB1;
 const int hbInPin = A2;
 const int audioInPin = A3;
@@ -15,17 +15,17 @@ HeartBeat heart(hbInPin);
 
 void setup()
 {
-  pinMode(hbOkPin, OUTPUT);
+  pinMode(hbOkOutPin, OUTPUT);
 
-  digitalWrite(hbOkPin, HIGH);
+  digitalWrite(hbOkOutPin, HIGH);
 
   analogReference(INTERNAL);
 }
 
 void loop()
 {
-  const bool commOk = heart.isBeating();
-  digitalWrite(hbOkPin, commOk);
+  const bool commOk = true; //heart.isBeating();
+  digitalWrite(hbOkOutPin, commOk?HIGH:LOW);
   
   if (commOk && vox.audioIsDetected())
   {
