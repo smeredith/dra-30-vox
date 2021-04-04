@@ -14,7 +14,8 @@ public:
   
   bool audioIsDetected()
   {
-    if (analogRead(m_audioInputPin) > m_threashold)
+    const auto level = analogRead(m_audioInputPin);
+    if (level > m_upperLimit || level < m_lowerLimit)
     {
       m_timeBelowThreashold = 0;
       return true;
@@ -24,8 +25,9 @@ public:
   }
 
 private:
-  const unsigned long m_minTailTime = 20;
-  const int m_threashold = 700;
+  const int m_minTailTime = 40;
+  const int m_upperLimit = 600;
+  const int m_lowerLimit = 350;
 
   int m_audioInputPin;
   int m_tailTimePotPin;
