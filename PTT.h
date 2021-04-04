@@ -1,8 +1,9 @@
 #pragma once
 
-// Controls  the PTT output.
+// Controls the PTT output.
 // If on longer than the maximim, turns off.
 // Enforces a minimum on time.
+// Enforces a minimum off time.
 class PTT
 {
 public:
