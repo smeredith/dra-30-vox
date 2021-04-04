@@ -22,9 +22,8 @@ public:
   }
   
 private:
-  const int m_timeoutMs = 1000;
-  
-  int m_hbInPin; 
+  const unsigned long m_timeoutMs = 1000;
+  const int m_hbInPin; 
   elapsedMillis m_timeSinceHbWasLow = 0;
   elapsedMillis m_timeSinceHbWasHigh = 0;
 };

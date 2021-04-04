@@ -24,7 +24,7 @@ void setup()
 
 void loop()
 {
-  const bool commOk = true; //heart.isBeating();
+  const bool commOk = heart.isBeating();
   digitalWrite(hbOkOutPin, commOk?HIGH:LOW);
   
   if (commOk && vox.audioIsDetected())
