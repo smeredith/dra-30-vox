@@ -24,7 +24,7 @@ public:
   }
 
 private:
-  const int m_minTailTime = 20;
+  const unsigned long m_minTailTime = 20;
   const int m_threashold = 700;
 
   int m_audioInputPin;

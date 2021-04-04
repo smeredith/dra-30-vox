@@ -1,5 +1,8 @@
 #pragma once
 
+// Controls  the PTT output.
+// If on longer than the maximim, turns off.
+// Enforces a minimum on time.
 class PTT
 {
 public:
@@ -13,6 +16,9 @@ public:
 
   void press()
   {
+    if (m_releaseElapsedMs < m_minReleaseTimeMs)
+      return;
+
     if (!m_pressed)
     {
       m_pressElapsedMs = 0;
@@ -34,17 +40,23 @@ public:
   {
     if (m_pressElapsedMs < m_minPressTimeMs)
         return;
-        
-    digitalWrite(m_pttPin, LOW);
-    m_pressed = false;
-    m_timeOut = false;
+
+    if (m_pressed)
+    {
+      digitalWrite(m_pttPin, LOW);
+      m_pressed = false;
+      m_timeOut = false;
+      m_releaseElapsedMs = 0;
+    }
   }
   
 private:
-  int m_pttPin;
+  const int m_pttPin;
   const unsigned long m_maxPressTimeMs = 300000;
   const unsigned long m_minPressTimeMs = 100;
+  const unsigned long m_minReleaseTimeMs = 100;
   bool m_pressed = false;
   bool m_timeOut = false;
   elapsedMillis m_pressElapsedMs;
+  elapsedMillis m_releaseElapsedMs;
 };
