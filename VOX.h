@@ -26,7 +26,7 @@ public:
 
 private:
   const int m_minTailTime = 40;
-  const int m_upperLimit = 600;
+  const int m_upperLimit = 580;
   const int m_lowerLimit = 350;
 
   int m_audioInputPin;
