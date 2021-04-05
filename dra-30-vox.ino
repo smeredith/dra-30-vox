@@ -17,6 +17,7 @@ void setup()
   digitalWrite(hbOkOutPin, LOW);
   analogReference(INTERNAL);
 
+  // Configure pin-change interrupt to monitor heartbeat.
   cli();
   PCMSK |= (1 << PCINT4); // Enable ISR for PB4
   GIMSK |= (1 << PCIE); // Enable PCINT interrupt in the general interrupt mask
@@ -24,16 +25,16 @@ void setup()
   sei();
 }
 
-volatile unsigned long lastHeartBeatTime = 0;
+volatile unsigned long lastHeartbeatTime = 0;
 
 ISR(PCINT0_vect)
 {
-  lastHeartBeatTime = millis();
+  lastHeartbeatTime = millis();
 }
 
 void loop()
 {
-  const bool commOk = millis() - lastHeartBeatTime < 1000UL;
+  const bool commOk = millis() - lastHeartbeatTime < 1000UL;
   digitalWrite(hbOkOutPin, commOk?HIGH:LOW);
   
   if (commOk && vox.audioIsDetected())
