@@ -19,7 +19,7 @@ public:
     // has stopped.
     
     const auto level = analogRead(m_audioInputPin);
-    if (level > m_upperLimit || level < m_lowerLimit)
+    if (level > m_quietBandUpperLimit || level < m_quietBandLowerLimit)
     {
       m_timeInQuietBand = 0;
       return true;
@@ -35,8 +35,8 @@ private:
   const int m_minTailTimeMs = 40;
 
   // When no audio is present, the analog readings are within this band on my hardware:
-  const int m_lowerLimit = 350;
-  const int m_upperLimit = 580;
+  const int m_quietBandLowerLimit = 350;
+  const int m_quietBandUpperLimit = 580;
   
   elapsedMillis m_timeInQuietBand = 1024;
 };
