@@ -14,22 +14,29 @@ public:
   
   bool audioIsDetected()
   {
+    // Sample the audio level. Each time a reading is outside the quiet band, reset the timer.
+    // When there has been enough time with no readings outside the quiet band, then audio 
+    // has stopped.
+    
     const auto level = analogRead(m_audioInputPin);
     if (level > m_upperLimit || level < m_lowerLimit)
     {
-      m_timeBelowThreashold = 0;
+      m_timeInQuietBand = 0;
       return true;
     }
 
-    return m_timeBelowThreashold < max(m_minTailTime, analogRead(m_tailTimePotPin));
+    return m_timeInQuietBand < max(m_minTailTimeMs, analogRead(m_tailTimePotPin));
   }
 
 private:
-  const int m_minTailTime = 40;
-  const int m_upperLimit = 580;
-  const int m_lowerLimit = 350;
+  const int m_audioInputPin;
+  const int m_tailTimePotPin;
 
-  int m_audioInputPin;
-  int m_tailTimePotPin;
-  elapsedMillis m_timeBelowThreashold = 1024;
+  const int m_minTailTimeMs = 40;
+
+  // When no audio is present, the analog readings are within this band on my hardware:
+  const int m_lowerLimit = 350;
+  const int m_upperLimit = 580;
+  
+  elapsedMillis m_timeInQuietBand = 1024;
 };
