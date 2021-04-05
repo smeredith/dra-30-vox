@@ -1,7 +1,6 @@
 #pragma once
 
 #include <elapsedMillis.h>
-#include <limits.h>
 
 class VOX
 {
@@ -11,13 +10,17 @@ public:
   , m_tailTimePotPin(tailTimePotPin)
   {
   }
-  
+
+  // Sample the audio level. Each time a sample is outside the quiet band, reset the timer.
+  // When there has been enough time with no samples outside the quiet band, then audio 
+  // has stopped.
+  //
+  // "Enough time" is determined by the larger of m_minTailTimeMs and the value read
+  // from the "tail time" trim pot. m_minTailTimeMs was determined experimentally to
+  // be the shortest reliable time to notice samples outside the quiet band if they
+  // exist.
   bool audioIsDetected()
   {
-    // Sample the audio level. Each time a reading is outside the quiet band, reset the timer.
-    // When there has been enough time with no readings outside the quiet band, then audio 
-    // has stopped.
-    
     const auto level = analogRead(m_audioInputPin);
     if (level > m_quietBandUpperLimit || level < m_quietBandLowerLimit)
     {
