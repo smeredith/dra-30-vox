@@ -37,9 +37,10 @@ private:
 
   const int m_minTailTimeMs = 40;
 
-  // When no audio is present, the analog readings are within this band on my hardware:
-  const int m_quietBandLowerLimit = 350;
-  const int m_quietBandUpperLimit = 580;
+  // When no audio is present, the analog readings are within this band on my hardware.
+  // The measured values are from 357 - 476.
+  const int m_quietBandLowerLimit = 351;
+  const int m_quietBandUpperLimit = 481;
   
   elapsedMillis m_timeInQuietBand = 1024;
 };
